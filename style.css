@@ -30,7 +30,6 @@ section{
 
 }
 
-/* css de la partie Accueil */
 
 .header{
     position: fixed;
@@ -85,12 +84,11 @@ section{
     align-items: center;
 }
 .home-img img{
-    padding: 20px;
+    padding: -20px;
+   border-radius: 20px;
     border: 8px solid #000;
-    height: 500px;
-    border-top-left-radius: 2000px;
-    border-bottom-right-radius: 2000px;
-    width: 35vw;
+    height: 400px;
+    width: 30vw;
     animation: floatImage 4s ease-in-out infinite;
     transition: 0.5s ease;
 }
@@ -170,7 +168,6 @@ span{
 
 }
 
-/* css de la partie Apropos */
 .about{
     display: flex;
     justify-content: center;
@@ -199,7 +196,7 @@ span{
 
 }
 
-/* css de la partie Services */
+
 
 .services h2{
     margin-bottom:5rem ;
@@ -243,7 +240,7 @@ span{
     letter-spacing: 0.05em;
 }
 
-/* css de la Partie portfolio */
+
 
 .portfolio{
     background: var(--second-bg-color);
