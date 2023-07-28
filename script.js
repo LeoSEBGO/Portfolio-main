@@ -69,7 +69,6 @@ themeToggle.addEventListener('click', () => {
 });
 
 
-// formulaire 
 
 emailjs.init("fEpzn6CBuQmyo11Vk");
 
@@ -82,15 +81,15 @@ function envoyerFormulaire(event) {
     const objet = document.getElementsByName('objet')[0].value;
     const message = document.getElementsByName('message')[0].value;
 
-    // Vérifier si l'e-mail est valide
+ 
     if (!isValidEmail(email)) {
         alert("Veuillez vérifier votre adresse e-mail.");
         return;
     }
     const templateParams = {
         from_name: nom,
-        to_email: "sebgoleonardo3@gmail.com", // Remplacez par votre adresse e-mail
-        to_name: "Destinataire", // Remplacez par le nom du destinataire
+        to_email: "sebgoleonardo3@gmail.com", 
+        to_name: "Destinataire", 
         subject: objet,
         message: message,
     };
@@ -103,7 +102,7 @@ function envoyerFormulaire(event) {
         });
 }
 function isValidEmail(email) {
-    // Vérifier le format de l'e-mail à l'aide d'une expression régulière
+    
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 }
