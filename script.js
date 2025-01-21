@@ -25,14 +25,14 @@ window.onscroll =() => {
                 document.querySelector('header nav a[href*=' + id + ' ]').classList.add('active');
             });
         };
-    }); 
+    });
     let header = document.querySelector('header');
 
     header.classList.toggle('sticky' , window.scrollY > 100);
 
     menuIcon.classList.remove('bx-x');
     navbar.classList.remove('active');
-    
+
 };
 
 ScrollReveal({
@@ -47,7 +47,7 @@ ScrollReveal().reveal('.home-img, .services-container, .portfolio-box, .contact 
 ScrollReveal().reveal('.home-content h1,.about-img ', {origin:'left'});
 ScrollReveal().reveal('.home-content p,.about-content ', {origin:'right'});
 
-// partie Animation de text 
+// partie Animation de text
 
 const typed = new Typed('.anime-text', {
     strings: ['DEVELOPPEUR','WEB','& MOBILE' ],
@@ -81,15 +81,15 @@ function envoyerFormulaire(event) {
     const objet = document.getElementsByName('objet')[0].value;
     const message = document.getElementsByName('message')[0].value;
 
- 
+
     if (!isValidEmail(email)) {
         alert("Veuillez vérifier votre adresse e-mail.");
         return;
     }
     const templateParams = {
         from_name: nom,
-        to_email: "sebgoleonardo3@gmail.com", 
-        to_name: "Destinataire", 
+        to_email: "sebgoleonardo3@gmail.com",
+        to_name: "Leonard SEBGO",
         subject: objet,
         message: message,
     };
@@ -102,7 +102,7 @@ function envoyerFormulaire(event) {
         });
 }
 function isValidEmail(email) {
-    
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 }
