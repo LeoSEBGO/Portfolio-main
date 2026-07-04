@@ -1,0 +1,225 @@
+
+<!DOCTYPE html>
+<html lang="fr" class="sr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=:, initial-scale=1.0">
+        <title>Leonard SEBGO | Portfolio</title>
+        <!--box icons -->
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        <!-- lien -->
+
+        <link rel="stylesheet" href="style.css">
+    </head>
+<body>
+  <!-- le header -->
+  <div class="bubble-container"></div>
+<header class="header">
+   <h1 > <a href="#home" class="logo">LS</a></h1>
+     <i class="bx bx-menu" id="menu-icon"></i>
+
+
+    <nav class="navbar">
+
+        <a href="#home" class="active" data-i18n="nav.home">Accueil</a>
+        <a href="#about" data-i18n="nav.about">A propos</a>
+        <a href="#services" data-i18n="nav.services">Services</a>
+        <a href="#Projets" data-i18n="nav.projects">Projets réalisés</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
+
+    </nav>
+    <div class="header-controls">
+      <div id="lang-toggle" class="lang-toggle" role="group" aria-label="Changer de langue">
+        <button type="button" data-lang="fr" class="lang-option active">FR</button>
+        <span class="lang-sep" aria-hidden="true">|</span>
+        <button type="button" data-lang="en" class="lang-option">EN</button>
+      </div>
+      <button id="theme-toggle" class="theme-toggle">
+          <a href="#" class="btn"><i class='bx bx-palette' ></i></a>
+      </button>
+    </div>
+</header>
+  <!-- partie Accueil -->
+  <section class="home" id="home">
+
+        <div class="home-content">
+            <h3 data-i18n="home.greeting"> Je me nomme </h3>
+            <h1>Leonard SEBGO </h1>
+            <h3><span data-i18n="home.role_prefix">je suis un</span> <span class="anime-text"></span></h3>
+            <p data-i18n="home.description">Je suis à votre disposition pour créer des sites Web ,
+                avec des interfaces utilisateurs attractif
+                et conviviale pour votre entreprise </p>
+             <div class="social-media">
+                <!-- icon from boxicon -->
+                <a href="https://www.linkedin.com/in/leonard-sebgo-71203a273/" target="_blank" rel="noopener noreferrer" data-i18n-aria-label="social.linkedin" aria-label="Profil LinkedIn de Leonard SEBGO"><i class="bx bxl-linkedin"></i></a>
+                <a href="https://web.facebook.com/mrgentleman.seb" target="_blank" rel="noopener noreferrer" data-i18n-aria-label="social.facebook" aria-label="Page Facebook de Leonard SEBGO"><i class="bx bxl-facebook"></i></a>
+               <!-- <a href="#"><i class="bx bxl-twitter"></i></a> -->
+               <!-- <a href="https://www.instagram.com/mrgentleman.seb/"><i class="bx bxl-instagram-alt"></i></a> -->
+
+             </div>
+             <a href="cv/CVLEO.pdf" download="CVLEO.pdf" class="btn" data-i18n="home.download_cv" data-i18n-href="links.cv.href" data-i18n-download="links.cv.download">Télécharger mon CV</a>
+        </div>
+        <div class="home-img">
+            <img src="images/profil.png" alt="">
+        </div>
+    </section>
+
+    <!-- Partie Apropos -->
+    <section class="about" id="about">
+        <div class="about-img">
+            <img src="" alt="">
+        </div>
+        <div class="about-content">
+            <h2 class="heading" data-i18n-html="about.heading"> A <span>propos</span></h2>
+            <br>
+            <br>
+            <h3 data-i18n="about.subtitle">Developeur web & Mobile!</h3>
+            <br>
+            <p data-i18n="about.text">J'intervient dans le développement et la maintenance de sites web et d'applications mobiles.
+                Et je serais ravi de mettre mes compétences en programmation et connaissances dans
+                 des langages de développement web tels que HTML, CSS, JavaScript, ainsi que des frameworks populaires Angular ...
+                au service de votre Entreprise .
+            </p>
+            <a href="#Projets" class="btn" data-i18n="common.see_more" data-i18n-href="links.portfolio">Voir plus</a>
+        </div>
+
+    </section>
+    <!-- Partie Services -->
+    <section class="services" id="services">
+        <h2 class="heading" data-i18n-html="services.heading">Nos <span>Services</span></h2>
+        <div class="services-container">
+            <div class="services-box">
+                <i class="bx bx-code-alt"></i>
+                <h3 data-i18n="services.web.title">Developpement Web</h3>
+                <p data-i18n="services.web.desc">
+                    Conception et développement de sites web attrayants en utilisant les dernières normes en matière de design.
+                    Collaboration étroite avec les clients pour comprendre leurs besoins et créer des concepts visuels convaincants.
+                </p>
+                <a href="#Projets" class="btn" data-i18n="common.see_more" data-i18n-href="links.portfolio"> Voir plus</a>
+            </div>
+            <div class="services-box">
+                <i class="bx bxs-paint"></i>
+                <h3 data-i18n="services.design.title">Design Graphique</h3>
+                <p data-i18n="services.design.desc">
+                    Création de designs innovants pour divers supports tels que les supports imprimés, les médias numériques, les réseaux sociaux, etc.
+                    Collaboration étroite avec les clients pour comprendre leurs besoins et traduire leurs idées en visuels créatifs.
+                </p>
+                <a href="#Projets" class="btn" data-i18n="common.see_more" data-i18n-href="links.portfolio">Voir plus</a>
+            </div>
+
+            <div class="services-box">
+                <i class="bx bx-bar-chart-alt"></i>
+                <h3 data-i18n="services.marketing.title"> Marketing Digital</h3>
+                <p data-i18n="services.marketing.desc">
+                    Développement et exécution de campagnes de marketing digital pour accroître la notoriété de la marque, l'engagement et les conversions.
+                    Nous nous concentrons sur la création de contenu pertinent et de valeur pour attirer et fidéliser l'audience.
+                </p>
+                <a href="#Projets" class="btn" data-i18n="common.see_more" data-i18n-href="links.portfolio"> Voir plus</a>
+            </div>
+        </div>
+    </section>
+    <!-- Partie Portfolio -->
+    <section class="portfolio" id="Projets">
+        <h2 class="heading" data-i18n-html="portfolio.heading"> Projets <span>réalisés</span></h2>
+
+        <div class="portfolio-container">
+            <div class="portfolio-box">
+                <img src="images/Hackathon.png" alt="">
+                <div class="portfolio-layer">
+                    <a href="https://github.com/MrGentlemanSeb/Forum_Dclic.git" target="_blank" rel="noopener noreferrer" data-i18n-aria-label="portfolio.project1" aria-label="Projet Hackathon Forum Dclic"><h4 data-i18n="portfolio.project1"> Projet Hackathon Forum Dclic </h4></a>
+                </div>
+
+
+            </div>
+            <div class="portfolio-box">
+                <img src="images/projet0.png" alt="">
+                <div class="portfolio-layer">
+                    <a href="https://github.com/MrGentlemanSeb/Dorsin.git" target="_blank" rel="noopener noreferrer" data-i18n-aria-label="portfolio.project2" aria-label="Projet angular"><h4 data-i18n="portfolio.project2">Projet angular</h4></a>
+                </div>
+
+
+            </div>
+            <div class="portfolio-box">
+                <img src="images/projet02.png" alt="">
+                <div class="portfolio-layer">
+                    <a href="https://github.com/MrGentlemanSeb/Projet-page-web-complet.git" target="_blank" rel="noopener noreferrer" data-i18n-aria-label="portfolio.project3" aria-label="Projet e-commerce">
+                        <h4 data-i18n="portfolio.project3"> Projet e-commerce</h4>
+                    </a>
+                </div>
+
+
+            </div>
+            <div class="portfolio-box">
+                <img src="images/projet1.png" alt="">
+                <div class="portfolio-layer">
+                    <a href="https://github.com/MrGentlemanSeb/Projet-Whatsapp" target="_blank" rel="noopener noreferrer" data-i18n-aria-label="portfolio.project4" aria-label="Projet Whatsapp"> <h4 data-i18n="portfolio.project4"> Projet Whatsapp</h4></a>
+                </div>
+
+
+            </div>
+            <div class="portfolio-box">
+                <img src="images/projet2.png" alt="">
+                <div class="portfolio-layer">
+                    <a href="https://github.com/MrGentlemanSeb/dclic_js_projects/tree/f0824eed3f929a016f1993239b9b0e1e209b7018/blog" target="_blank" rel="noopener noreferrer" data-i18n-aria-label="portfolio.project5" aria-label="Projet Blog"><h4 data-i18n="portfolio.project5">Projet Blog</h4></a>
+                </div>
+
+
+            </div>
+            <div class="portfolio-box">
+                <img src="images/projet3.png" alt="">
+                <div class="portfolio-layer">
+                    <a href="todo_list" data-i18n-aria-label="portfolio.project6" aria-label="Projet TODO List"> <h4 data-i18n="portfolio.project6">Projet TODO List</h4></a>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Partie Contact -->
+    <section class="contact" id="contact">
+        <h2 class="heading" data-i18n-html="contact.heading">Contactez <span>Moi</span></h2>
+        <form id="monFormulaire">
+            <div class="input-box">
+                <input type="text" placeholder="Nom complet" name="nom" data-i18n-placeholder="contact.name" required>
+                <input type="email" placeholder="Email" name="email" data-i18n-placeholder="contact.email" required>
+            </div>
+            <div class="input-box">
+                <input type="number" placeholder="Numero" name="numero" data-i18n-placeholder="contact.phone" required>
+                <input type="text" placeholder="objet" name="objet" data-i18n-placeholder="contact.subject" required>
+            </div>
+            <textarea name="message" cols="30" rows="10" placeholder="Votre message" data-i18n-placeholder="contact.message" required></textarea>
+            <button type="submit" class="btn" data-i18n="contact.submit">Envoyer</button>
+        </form>
+
+    </section>
+    <footer class="footer">
+        <div class="footer-text">
+            <p data-i18n="footer.copyright">Copyright © 2025 by SEB.L | Tous droits réservés.</p>
+        </div>
+        <div class="footer-iconTop">
+            <a href="#"><i class="bx bx-up-arrow-alt"></i></a>
+        </div>
+    </footer>
+
+
+
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <!-- animation au survol -->
+
+
+    <!-- scroll reveal -->
+    <script src="https://unpkg.com/scrollreveal"></script>
+
+<!-- typed js -->
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+    <!-- Partie Java script -->
+<script src="script.js"></script>
+
+
+</body>
+
+</html>
