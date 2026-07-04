@@ -40,6 +40,7 @@ const translations = {
         'contact.subject': 'objet',
         'contact.message': 'Votre message',
         'contact.submit': 'Envoyer',
+        'contact.sending': 'Envoi en cours...',
         'footer.copyright': 'Copyright © 2025 by SEB.L | Tous droits réservés.',
         'alert.invalidEmail': 'Veuillez vérifier votre adresse e-mail.',
         'alert.success': 'Message envoyé avec succès !',
@@ -87,6 +88,7 @@ const translations = {
         'contact.subject': 'Subject',
         'contact.message': 'Your message',
         'contact.submit': 'Send',
+        'contact.sending': 'Sending...',
         'footer.copyright': 'Copyright © 2025 by SEB.L | All rights reserved.',
         'alert.invalidEmail': 'Please check your email address.',
         'alert.success': 'Message sent successfully!',
@@ -384,42 +386,96 @@ if (themeToggle) {
     });
 }
 
-emailjs.init("fEpzn6CBuQmyo11Vk");
+const EMAILJS_PUBLIC_KEY = 'fEpzn6CBuQmyo11Vk';
+const EMAILJS_SERVICE_ID = 'service_SLeonard';
+const EMAILJS_TEMPLATE_ID = 'template_zku67sq';
+
+function initEmailJS() {
+    if (typeof emailjs === 'undefined') {
+        return false;
+    }
+
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+    return true;
+}
+
+function buildEmailTemplateParams(form) {
+    const fromName = form.from_name.value.trim();
+    const fromEmail = form.from_email.value.trim();
+    const phone = form.phone.value.trim();
+    const subject = form.subject.value.trim();
+    const message = form.message.value.trim();
+
+    form.reply_to.value = fromEmail;
+
+    return {
+        from_name: fromName,
+        from_email: fromEmail,
+        reply_to: fromEmail,
+        user_name: fromName,
+        user_email: fromEmail,
+        name: fromName,
+        email: fromEmail,
+        phone,
+        subject,
+        title: subject,
+        message,
+        nom: fromName,
+        numero: phone,
+        objet: subject,
+    };
+}
 
 function envoyerFormulaire(event) {
     event.preventDefault();
 
-    const nom = document.getElementsByName('nom')[0].value;
-    const email = document.getElementsByName('email')[0].value;
-    const numero = document.getElementsByName('numero')[0].value;
-    const objet = document.getElementsByName('objet')[0].value;
-    const message = document.getElementsByName('message')[0].value;
+    if (!initEmailJS()) {
+        console.error('EmailJS library not loaded');
+        alert(t('alert.error'));
+        return;
+    }
 
+    const form = event.target;
+    const fromEmail = form.from_email.value.trim();
+    const submitBtn = form.querySelector('button[type="submit"]');
 
-    if (!isValidEmail(email)) {
+    if (!isValidEmail(fromEmail)) {
         alert(t('alert.invalidEmail'));
         return;
     }
-    const templateParams = {
-        from_name: nom,
-        to_email: "sebgoleonardo3@gmail.com",
-        to_name: "Leonard SEBGO",
-        subject: objet,
-        message: message,
-    };
 
-    emailjs.send("service_SLeonard", "template_zku67sq", templateParams)
-        .then(function(response) {
+    const templateParams = buildEmailTemplateParams(form);
+    const defaultLabel = submitBtn ? submitBtn.textContent : '';
+
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = t('contact.sending');
+    }
+
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+        .then(function() {
             alert(t('alert.success'));
-        }, function(error) {
+            form.reset();
+            form.reply_to.value = '';
+        })
+        .catch(function(error) {
+            console.error('EmailJS error:', error);
             alert(t('alert.error'));
+        })
+        .finally(function() {
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = defaultLabel || t('contact.submit');
+            }
         });
 }
-function isValidEmail(email) {
 
+function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 }
 
 const formulaire = document.getElementById('monFormulaire');
-formulaire.addEventListener('submit', envoyerFormulaire);
+if (formulaire) {
+    formulaire.addEventListener('submit', envoyerFormulaire);
+}

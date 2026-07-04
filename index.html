@@ -182,13 +182,14 @@
     <section class="contact" id="contact">
         <h2 class="heading" data-i18n-html="contact.heading">Contactez <span>Moi</span></h2>
         <form id="monFormulaire">
+            <input type="hidden" name="reply_to" value="">
             <div class="input-box">
-                <input type="text" placeholder="Nom complet" name="nom" data-i18n-placeholder="contact.name" required>
-                <input type="email" placeholder="Email" name="email" data-i18n-placeholder="contact.email" required>
+                <input type="text" placeholder="Nom complet" name="from_name" data-i18n-placeholder="contact.name" required>
+                <input type="email" placeholder="Email" name="from_email" data-i18n-placeholder="contact.email" required>
             </div>
             <div class="input-box">
-                <input type="number" placeholder="Numero" name="numero" data-i18n-placeholder="contact.phone" required>
-                <input type="text" placeholder="objet" name="objet" data-i18n-placeholder="contact.subject" required>
+                <input type="tel" placeholder="Numero" name="phone" data-i18n-placeholder="contact.phone" required>
+                <input type="text" placeholder="objet" name="subject" data-i18n-placeholder="contact.subject" required>
             </div>
             <textarea name="message" cols="30" rows="10" placeholder="Votre message" data-i18n-placeholder="contact.message" required></textarea>
             <button type="submit" class="btn" data-i18n="contact.submit">Envoyer</button>
@@ -206,7 +207,7 @@
 
 
 
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <!-- animation au survol -->
 
 
