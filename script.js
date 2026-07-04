@@ -44,7 +44,7 @@ const translations = {
         'alert.invalidEmail': 'Veuillez vérifier votre adresse e-mail.',
         'alert.success': 'Message envoyé avec succès !',
         'alert.error': "Une erreur s'est produite lors de l'envoi du message. Veuillez réessayer plus tard.",
-        'typed.strings': ['DEVELOPPEUR', 'WEB', '& MOBILE'],
+        'typed.strings': ['Développeur Web & Mobile'],
     },
     en: {
         'nav.home': 'Home',
@@ -91,9 +91,87 @@ const translations = {
         'alert.invalidEmail': 'Please check your email address.',
         'alert.success': 'Message sent successfully!',
         'alert.error': 'An error occurred while sending the message. Please try again later.',
-        'typed.strings': ['DEVELOPER', 'WEB', '& MOBILE'],
+        'typed.strings': ['Web & Mobile Developer'],
     },
 };
+
+const SUPPORTED_LANGS = ['fr', 'en'];
+
+function getBasePath() {
+    let pathname = window.location.pathname;
+    pathname = pathname.replace(/\/(fr|en)\/?$/, '/');
+    if (pathname.endsWith('/index.html')) {
+        pathname = pathname.slice(0, -('/index.html'.length)) || '/';
+    }
+    if (!pathname.endsWith('/')) {
+        pathname += '/';
+    }
+    return pathname;
+}
+
+function getLangFromPath() {
+    const match = window.location.pathname.match(/\/(fr|en)\/?$/);
+    return match && SUPPORTED_LANGS.includes(match[1]) ? match[1] : null;
+}
+
+function buildLangPath(lang, hash = '') {
+    const base = getBasePath();
+    const normalizedHash = hash.startsWith('#') ? hash : (hash ? `#${hash}` : '');
+
+    if (base === '/') {
+        return `/${lang}${normalizedHash}`;
+    }
+
+    return `${base.replace(/\/$/, '')}/${lang}${normalizedHash}`;
+}
+
+function resolveHrefForLang(href, lang) {
+    if (!href || href.startsWith('http') || href.startsWith('mailto:')) {
+        return href;
+    }
+
+    if (href === '#') {
+        return buildLangPath(lang, '#home');
+    }
+
+    const hashIndex = href.indexOf('#');
+    if (hashIndex !== -1) {
+        return buildLangPath(lang, href.slice(hashIndex));
+    }
+
+    return href;
+}
+
+function updateBrowserUrl(lang, { replace = false } = {}) {
+    const hash = window.location.hash || '';
+    const newUrl = buildLangPath(lang, hash);
+    const current = window.location.pathname + window.location.hash;
+
+    if (current === newUrl) {
+        return;
+    }
+
+    const state = { lang };
+    if (replace) {
+        history.replaceState(state, '', newUrl);
+    } else {
+        history.pushState(state, '', newUrl);
+    }
+}
+
+function updateInternalLinks(lang) {
+    document.querySelectorAll('a[href]').forEach((link) => {
+        const href = link.getAttribute('href');
+        const localized = resolveHrefForLang(href, lang);
+        if (localized && localized !== href) {
+            link.setAttribute('href', localized);
+        }
+    });
+}
+
+function resolveInitialLang() {
+    return getLangFromPath() || getStoredLang() || 'fr';
+}
 
 function getStoredLang() {
     try {
@@ -111,14 +189,14 @@ function setStoredLang(lang) {
     }
 }
 
-let currentLang = getStoredLang();
+let currentLang = resolveInitialLang();
 let typedInstance = null;
 
 function t(key) {
     return translations[currentLang][key] || translations.fr[key] || key;
 }
 
-function applyLanguage(lang) {
+function applyLanguage(lang, options = {}) {
     if (!translations[lang]) return;
 
     currentLang = lang;
@@ -126,6 +204,7 @@ function applyLanguage(lang) {
     document.documentElement.lang = lang;
 
     document.querySelectorAll('[data-i18n]').forEach((el) => {
+        if (el.classList.contains('anime-text')) return;
         el.textContent = translations[lang][el.dataset.i18n];
     });
 
@@ -139,7 +218,9 @@ function applyLanguage(lang) {
 
     document.querySelectorAll('[data-i18n-href]').forEach((el) => {
         const value = translations[lang][el.dataset.i18nHref];
-        if (value) el.setAttribute('href', value);
+        if (value) {
+            el.setAttribute('href', resolveHrefForLang(value, lang));
+        }
     });
 
     document.querySelectorAll('[data-i18n-download]').forEach((el) => {
@@ -156,6 +237,12 @@ function applyLanguage(lang) {
         document.title = translations[lang]['meta.title'];
     }
 
+    updateInternalLinks(lang);
+
+    if (!options.skipUrlUpdate) {
+        updateBrowserUrl(lang, { replace: options.replaceUrl !== false });
+    }
+
     document.querySelectorAll('.lang-option').forEach((opt) => {
         opt.classList.toggle('active', opt.dataset.lang === lang);
     });
@@ -170,21 +257,31 @@ function applyLanguage(lang) {
 
 function initTyped(lang) {
     const el = document.querySelector('.anime-text');
-    if (!el || typeof Typed === 'undefined') return;
+    if (!el) return;
 
     if (typedInstance && typeof typedInstance.destroy === 'function') {
         typedInstance.destroy();
         typedInstance = null;
     }
 
-    el.textContent = '';
+    el.innerHTML = '';
+    el.removeAttribute('style');
+
+    const strings = translations[lang]['typed.strings'];
+    if (!strings || typeof Typed === 'undefined') {
+        el.textContent = Array.isArray(strings) ? strings[0] : strings;
+        return;
+    }
 
     typedInstance = new Typed(el, {
-        strings: translations[lang]['typed.strings'],
-        typeSpeed: 100,
-        backSpeed: 100,
-        backDelay: 100,
+        strings: Array.isArray(strings) ? strings : [strings],
+        typeSpeed: 80,
+        backSpeed: 40,
+        backDelay: 1800,
+        startDelay: 200,
         loop: true,
+        showCursor: true,
+        cursorChar: '|',
     });
 }
 
@@ -195,7 +292,7 @@ function initLanguageToggle() {
             e.stopPropagation();
             const newLang = option.dataset.lang;
             if (newLang && newLang !== currentLang) {
-                applyLanguage(newLang);
+                applyLanguage(newLang, { replaceUrl: false });
             }
         });
     });
@@ -226,7 +323,7 @@ window.onscroll =() => {
             navLinks.forEach(links => {
                 links.classList.remove('active');
             });
-            const activeLink = document.querySelector('header nav a[href="#' + id + '"]');
+            const activeLink = document.querySelector('header nav a[href$="#' + id + '"]');
             if (activeLink) {
                 activeLink.classList.add('active');
             }
@@ -242,7 +339,24 @@ window.onscroll =() => {
 };
 
 initLanguageToggle();
-applyLanguage(currentLang);
+
+function bootApp() {
+    const lang = resolveInitialLang();
+    applyLanguage(lang, { replaceUrl: true });
+}
+
+if (document.readyState === 'complete') {
+    bootApp();
+} else {
+    window.addEventListener('load', bootApp);
+}
+
+window.addEventListener('popstate', () => {
+    const lang = getLangFromPath();
+    if (lang && lang !== currentLang) {
+        applyLanguage(lang, { skipUrlUpdate: true });
+    }
+});
 
 if (typeof ScrollReveal !== 'undefined') {
     ScrollReveal({
